@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kmpmovies2.navigation.AppRoutes
+import com.example.kmpmovies2.ui.movies.MoviesListRoute
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -13,9 +14,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
         val navController = rememberNavController()
-        NavHost(navController, startDestination = AppRoutes.MoviesList){
+        NavHost(navController, startDestination = AppRoutes.MoviesList) {
             composable<AppRoutes.MoviesList> {
-
+                MoviesListRoute()
             }
 
             composable<AppRoutes.MovieDetails> {

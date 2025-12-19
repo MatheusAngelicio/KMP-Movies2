@@ -1,0 +1,60 @@
+package com.example.kmpmovies2.ui.movies
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.example.kmpmovies2.ui.compoents.MoviePoster
+import org.jetbrains.compose.ui.tooling.preview.Preview
+
+@Composable
+fun MoviesListRoute() {
+    MoviesListScreen()
+}
+
+@Composable
+fun MoviesListScreen() {
+    Scaffold { paddingValues ->
+        LazyColumn(
+            modifier = Modifier.padding(paddingValues),
+            contentPadding = PaddingValues(16.dp),
+        ) {
+            item {
+                Column {
+                    Text(
+                        "Popular Movies",
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    LazyRow(
+                        modifier = Modifier.padding(top = 8.dp),
+                        contentPadding = PaddingValues(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(10) {
+                            MoviePoster()
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MoviePosterPreview() {
+    MaterialTheme {
+        MoviesListScreen()
+    }
+}
