@@ -12,7 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.kmpmovies2.domain.model.Movie
+import com.example.kmpmovies2.domain.model.movie1
 import com.example.kmpmovies2.ui.compoents.MoviePoster
+import com.example.kmpmovies2.ui.compoents.MovieSection
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -28,23 +31,20 @@ fun MoviesListScreen() {
             contentPadding = PaddingValues(16.dp),
         ) {
             item {
-                Column {
-                    Text(
-                        "Popular Movies",
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-
-                    LazyRow(
-                        modifier = Modifier.padding(top = 8.dp),
-                        contentPadding = PaddingValues(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        items(10) {
-                            MoviePoster()
-                        }
-                    }
-                }
+                MovieSection(
+                    title = "Popular Movies",
+                    listOf(movie1, movie1, movie1),
+                )
+                MovieSection(
+                    title = "Top Rated Movies",
+                    listOf(movie1, movie1, movie1),
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+                MovieSection(
+                    title = "Upcoming Movies",
+                    listOf(movie1, movie1, movie1),
+                    modifier = Modifier.padding(top = 16.dp)
+                )
             }
 
         }

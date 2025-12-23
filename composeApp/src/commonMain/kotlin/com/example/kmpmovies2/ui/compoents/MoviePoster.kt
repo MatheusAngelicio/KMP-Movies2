@@ -14,13 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.example.kmpmovies2.domain.model.Movie
+import com.example.kmpmovies2.domain.model.movie1
 import kmpmovies2.composeapp.generated.resources.Res
 import kmpmovies2.composeapp.generated.resources.minecraft_movie
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun MoviePoster(modifier: Modifier = Modifier){
+fun MoviePoster(
+    movie: Movie,
+    modifier: Modifier = Modifier
+) {
     Column(modifier = modifier.width(140.dp))
     {
         Card(
@@ -36,7 +41,7 @@ fun MoviePoster(modifier: Modifier = Modifier){
         }
 
         Text(
-            text = "minecraft",
+            text = movie.title,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.titleMedium
@@ -46,8 +51,8 @@ fun MoviePoster(modifier: Modifier = Modifier){
 
 @Preview(showBackground = true)
 @Composable
-private fun MoviePosterPreview(){
-    MaterialTheme{
-        MoviePoster()
+private fun MoviePosterPreview() {
+    MaterialTheme {
+        MoviePoster(movie = movie1)
     }
 }
