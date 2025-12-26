@@ -56,6 +56,9 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.logging)
+
+            implementation(libs.coil.compose)
+            implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

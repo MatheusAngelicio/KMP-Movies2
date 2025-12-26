@@ -1,6 +1,5 @@
 package com.example.kmpmovies2.ui.compoents
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.kmpmovies2.domain.model.Movie
 import com.example.kmpmovies2.domain.model.movie1
 import kmpmovies2.composeapp.generated.resources.Res
@@ -32,8 +32,8 @@ fun MoviePoster(
             modifier = Modifier.width(140.dp).height(210.dp),
             shape = RoundedCornerShape(12.dp)
         ) {
-            Image(
-                painter = painterResource(Res.drawable.minecraft_movie),
+            AsyncImage(
+                model = movie.posterUrl,
                 contentDescription = null,
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop
