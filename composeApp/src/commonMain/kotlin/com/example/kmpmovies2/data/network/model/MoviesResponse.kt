@@ -5,15 +5,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MoviesListResponse(
-    val results: List<MoviesResponse>
+    val results: List<MovieResponse>
 )
 
 @Serializable
-data class MoviesResponse(
+data class MovieResponse(
     val id: Int,
     val title: String,
     val overview: String,
 
     @SerialName("poster_path")
-    val posterUrl: String,
+    val posterPath: String,
 )
