@@ -58,7 +58,7 @@ kotlin {
             implementation(libs.ktor.client.logging)
 
             implementation(libs.coil.compose)
-            implementation("io.coil-kt.coil3:coil-network-ktor3:3.3.0")
+            implementation(libs.coil.network.ktor3)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
