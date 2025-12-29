@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.kmpmovies2.domain.model.Movie
+import com.example.kmpmovies2.domain.model.MovieSection
 
 @Composable
 fun MovieSection(

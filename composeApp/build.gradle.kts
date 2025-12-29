@@ -45,6 +45,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.lifecycle.viewmodel.compose)
 
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
@@ -58,7 +59,7 @@ kotlin {
             implementation(libs.ktor.client.logging)
 
             implementation(libs.coil.compose)
-            implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
+            implementation("io.coil-kt.coil3:coil-network-ktor3:3.3.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
