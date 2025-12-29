@@ -3,21 +3,23 @@ package com.example.kmpmovies2.data.repository
 import com.example.kmpmovies2.data.network.KtorClient
 import com.example.kmpmovies2.domain.model.MovieSection
 import com.example.kmpmovies2.domain.model.toModel
+import com.example.kmpmovies2.domain.repository.MoviesRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
-class MoviesRepository(
+class MoviesRepositoryImpl(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-) {
+    private val ktorClient: KtorClient,
+) : MoviesRepository {
 
-    suspend fun getMovieSections(): List<MovieSection> {
+    override suspend fun getMovieSections(): List<MovieSection> {
         return withContext(ioDispatcher) {
-            val popularMoviesDeferred = async { KtorClient.getMovies("popular") }
-            val topRatedMoviesDeferred = async { KtorClient.getMovies("top_rated") }
-            val upcomingMoviesDeferred = async { KtorClient.getMovies("upcoming") }
+            val popularMoviesDeferred = async { ktorClient.getMovies("popular") }
+            val topRatedMoviesDeferred = async { ktorClient.getMovies("top_rated") }
+            val upcomingMoviesDeferred = async { ktorClient.getMovies("upcoming") }
 
             val popularMovies = popularMoviesDeferred.await()
             val topRatedMovies = topRatedMoviesDeferred.await()

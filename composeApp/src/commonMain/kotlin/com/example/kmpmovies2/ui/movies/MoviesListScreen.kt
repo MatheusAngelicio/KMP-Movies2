@@ -15,23 +15,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.kmpmovies2.data.repository.MoviesRepository
+import com.example.kmpmovies2.data.repository.MoviesRepositoryImpl
 import com.example.kmpmovies2.domain.model.MovieSection
 import com.example.kmpmovies2.domain.model.movie1
 import com.example.kmpmovies2.ui.compoents.MovieSection
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MoviesListRoute(
-    viewModel: MoviesListViewModel = viewModel {
-        MoviesListViewModel(
-            moviesRepository = MoviesRepository()
-        )
-    }
+    viewModel: MoviesListViewModel = koinViewModel()
 ) {
     val moviesListState by viewModel.moviesListState.collectAsStateWithLifecycle()
 

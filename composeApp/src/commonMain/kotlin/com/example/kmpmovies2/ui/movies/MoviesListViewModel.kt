@@ -2,8 +2,9 @@ package com.example.kmpmovies2.ui.movies
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kmpmovies2.data.repository.MoviesRepository
+import com.example.kmpmovies2.data.repository.MoviesRepositoryImpl
 import com.example.kmpmovies2.domain.model.MovieSection
+import com.example.kmpmovies2.domain.repository.MoviesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
