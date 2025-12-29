@@ -14,6 +14,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.HttpHeaders
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 private const val BASE_URL = "https://api.themoviedb.org"
@@ -22,12 +23,15 @@ const val IMAGE_SMALL_BASE_URL = "https://image.tmdb.org/t/p/w154"
 object KtorClient {
     private val client = HttpClient {
         install(ContentNegotiation) {
-            Json {
-                prettyPrint = true
-                isLenient = true
-                ignoreUnknownKeys = true
-            }
+            json(
+                Json {
+                    prettyPrint = true
+                    isLenient = true
+                    ignoreUnknownKeys = true
+                }
+            )
         }
+
         install(Auth) {
             bearer {
                 loadTokens {
