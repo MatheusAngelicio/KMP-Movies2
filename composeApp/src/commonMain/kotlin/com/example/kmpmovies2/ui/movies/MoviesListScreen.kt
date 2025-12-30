@@ -22,6 +22,7 @@ import com.example.kmpmovies2.data.repository.MoviesRepositoryImpl
 import com.example.kmpmovies2.domain.model.MovieSection
 import com.example.kmpmovies2.domain.model.movie1
 import com.example.kmpmovies2.ui.compoents.MovieSection
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -62,7 +63,7 @@ fun MoviesListScreen(
                     ) {
                         items(moviesListState.movieSections) { movieSection ->
                             MovieSection(
-                                title = movieSection.section.title,
+                                title = stringResource(movieSection.section.titleRes),
                                 movies = movieSection.movies,
                             )
                         }
