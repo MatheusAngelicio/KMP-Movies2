@@ -22,6 +22,7 @@ import com.example.kmpmovies2.data.repository.MoviesRepositoryImpl
 import com.example.kmpmovies2.domain.model.MovieSection
 import com.example.kmpmovies2.domain.model.movie1
 import com.example.kmpmovies2.ui.compoents.MovieSection
+import com.example.kmpmovies2.ui.theme.MoviesAppTheme
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -86,7 +87,7 @@ fun MoviesListScreen(
 @Preview(showBackground = true)
 @Composable
 private fun MoviePosterSuccessPreview() {
-    MaterialTheme {
+    MoviesAppTheme {
         MoviesListScreen(
             moviesListState = MoviesListViewModel.MoviesListState.Success(
                 movieSections = listOf(
@@ -111,7 +112,7 @@ private fun MoviePosterSuccessPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun MoviePosterErrorPreview() {
-    MaterialTheme {
+    MoviesAppTheme {
         MoviesListScreen(
             moviesListState = MoviesListViewModel.MoviesListState.Error(message = "Error")
         )
@@ -121,7 +122,7 @@ private fun MoviePosterErrorPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun MoviePosterLoadingPreview() {
-    MaterialTheme {
+    MoviesAppTheme {
         MoviesListScreen(
             moviesListState = MoviesListViewModel.MoviesListState.Loading
         )
