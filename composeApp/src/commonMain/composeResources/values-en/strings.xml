@@ -3,4 +3,5 @@
     <string name="movies_list_top_rated_movies">Top Rated Movies</string>
     <string name="movies_list_upcoming_movies">Upcoming Movies</string>
     <string name="movies_detail_text">Movie Detail</string>
+    <string name="movies_detail_watch_trailer">Watch trailer</string>
 </resources>

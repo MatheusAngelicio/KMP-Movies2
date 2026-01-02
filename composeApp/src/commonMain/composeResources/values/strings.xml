@@ -3,4 +3,5 @@
     <string name="movies_list_top_rated_movies">Filmes mais bem avaliados</string>
     <string name="movies_list_upcoming_movies">Próximos lançamentos</string>
     <string name="movies_detail_text">Detalhes do filme</string>
+    <string name="movies_detail_watch_trailer">Assista o trailer</string>
 </resources>
