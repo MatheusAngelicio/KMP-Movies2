@@ -1,5 +1,6 @@
 package com.example.kmpmovies2.ui.compoents
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,9 +25,13 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun MoviePoster(
     movie: Movie,
+    onMoviePosterClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.width(140.dp))
+    Column(
+        modifier = modifier
+            .width(140.dp)
+            .clickable { onMoviePosterClick() })
     {
         Card(
             modifier = Modifier.width(140.dp).height(210.dp),
@@ -53,6 +58,9 @@ fun MoviePoster(
 @Composable
 private fun MoviePosterPreview() {
     MaterialTheme {
-        MoviePoster(movie = movie1)
+        MoviePoster(
+            movie = movie1,
+            onMoviePosterClick = {}
+        )
     }
 }

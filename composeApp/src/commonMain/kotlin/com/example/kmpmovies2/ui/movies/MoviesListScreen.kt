@@ -29,18 +29,21 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MoviesListRoute(
-    viewModel: MoviesListViewModel = koinViewModel()
+    viewModel: MoviesListViewModel = koinViewModel(),
+    navigateToMovieDetails: (movieId: Int) -> Unit,
 ) {
     val moviesListState by viewModel.moviesListState.collectAsStateWithLifecycle()
 
     MoviesListScreen(
         moviesListState = moviesListState,
+        onMovieClick = navigateToMovieDetails
     )
 }
 
 @Composable
 fun MoviesListScreen(
-    moviesListState: MoviesListViewModel.MoviesListState
+    moviesListState: MoviesListViewModel.MoviesListState,
+    onMovieClick: (movieId: Int) -> Unit,
 ) {
     Scaffold { paddingValues ->
         Box(
@@ -66,6 +69,7 @@ fun MoviesListScreen(
                             MovieSection(
                                 title = stringResource(movieSection.section.titleRes),
                                 movies = movieSection.movies,
+                                onMoviePosterClick = onMovieClick
                             )
                         }
                     }
@@ -103,8 +107,9 @@ private fun MoviePosterSuccessPreview() {
                         section = MovieSection.SectionType.UPCOMING,
                         movies = listOf(movie1, movie1, movie1)
                     )
-                )
-            )
+                ),
+            ),
+            onMovieClick = {}
         )
     }
 }
@@ -114,7 +119,9 @@ private fun MoviePosterSuccessPreview() {
 private fun MoviePosterErrorPreview() {
     MoviesAppTheme {
         MoviesListScreen(
-            moviesListState = MoviesListViewModel.MoviesListState.Error(message = "Error")
+            moviesListState = MoviesListViewModel.MoviesListState.Error(message = "Error"),
+            onMovieClick = {}
+
         )
     }
 }
@@ -124,7 +131,8 @@ private fun MoviePosterErrorPreview() {
 private fun MoviePosterLoadingPreview() {
     MoviesAppTheme {
         MoviesListScreen(
-            moviesListState = MoviesListViewModel.MoviesListState.Loading
+            moviesListState = MoviesListViewModel.MoviesListState.Loading,
+            onMovieClick = {}
         )
     }
 }

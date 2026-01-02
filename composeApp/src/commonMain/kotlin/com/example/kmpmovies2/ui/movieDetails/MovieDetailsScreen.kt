@@ -103,7 +103,6 @@ fun MovieDetailsScreen(movie: Movie) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical),
         ) {
             Surface(
                 modifier = Modifier
@@ -199,7 +198,7 @@ fun MovieDetailsScreen(movie: Movie) {
                     )
                 }
 
-                Spacer(modifier = Modifier.height(260.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 BoxWithConstraints {
                     val itemWidth = maxWidth * 0.55f
