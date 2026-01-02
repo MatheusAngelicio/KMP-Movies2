@@ -1,5 +1,7 @@
 package com.example.kmpmovies2.data.network
 
+import com.example.kmpmovies2.data.network.model.CreditsListResponse
+import com.example.kmpmovies2.data.network.model.MovieResponse
 import com.example.kmpmovies2.data.network.model.MoviesListResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -54,6 +56,18 @@ class KtorClient {
             parameter("language", language)
         }.body()
 
+    }
+
+    suspend fun getMovieDetail(id: Int, language: String = "pt-BR"): MovieResponse {
+        return client.get("$BASE_URL/3/movie/$id") {
+            parameter("language", language)
+        }.body()
+    }
+
+    suspend fun getCredits(movieId: Int, language: String = "pt-BR"): CreditsListResponse {
+        return client.get("$BASE_URL/3/movie/$movieId/credits") {
+            parameter("language", language)
+        }.body()
     }
 
 

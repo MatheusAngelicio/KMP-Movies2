@@ -65,7 +65,9 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
 
-            implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.1")
+            implementation(libs.font.awesome)
+            implementation(libs.kotlinx.datetime)
+
 
         }
         commonTest.dependencies {
