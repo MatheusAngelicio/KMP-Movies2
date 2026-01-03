@@ -1,8 +1,9 @@
 package com.example.kmpmovies2.data.repository
 
+import com.example.kmpmovies2.data.mapper.toModel
 import com.example.kmpmovies2.data.network.KtorClient
+import com.example.kmpmovies2.domain.model.Movie
 import com.example.kmpmovies2.domain.model.MovieSection
-import com.example.kmpmovies2.domain.model.toModel
 import com.example.kmpmovies2.domain.repository.MoviesRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -39,6 +40,20 @@ class MoviesRepositoryImpl(
                     movies = upcomingMovies.results.map { it.toModel() }
                 )
             )
+        }
+    }
+
+    suspend fun getMovieDetail(movieId: Int): Result<Movie> {
+        return withContext(ioDispatcher) {
+            runCatching {
+                val movieDetailDeferred = async { ktorClient.getMovieDetail(movieId) }
+                val creditsDeferred = async { ktorClient.getCredits(movieId) }
+
+                val movieDetailResponse = movieDetailDeferred.await()
+                val creditsResponse = creditsDeferred.await()
+
+                movieDetailResponse.toModel(castMembersResponse = creditsResponse.cast)
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
@@ -23,7 +22,7 @@ import kotlinx.serialization.json.Json
 private const val BASE_URL = "https://api.themoviedb.org"
 const val IMAGE_SMALL_BASE_URL = "https://image.tmdb.org/t/p/w154"
 
-class KtorClient {
+class  KtorClient {
     private val client = HttpClient {
         install(ContentNegotiation) {
             json(
