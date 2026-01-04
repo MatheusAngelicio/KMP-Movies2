@@ -43,7 +43,7 @@ class MoviesRepositoryImpl(
         }
     }
 
-    suspend fun getMovieDetail(movieId: Int): Result<Movie> {
+    override suspend fun getMovieDetail(movieId: Int): Result<Movie> {
         return withContext(ioDispatcher) {
             runCatching {
                 val movieDetailDeferred = async { ktorClient.getMovieDetail(movieId) }
