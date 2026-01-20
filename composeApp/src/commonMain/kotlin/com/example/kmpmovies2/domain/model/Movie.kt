@@ -1,8 +1,5 @@
 package com.example.kmpmovies2.domain.model
 
-import com.example.kmpmovies2.data.network.IMAGE_SMALL_BASE_URL
-import com.example.kmpmovies2.data.network.model.MovieResponse
-
 data class Movie(
     val id: Int,
     val title: String,

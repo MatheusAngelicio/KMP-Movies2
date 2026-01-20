@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
@@ -59,16 +61,18 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MovieDetailsRoute(
-    viewModel: MovieDetailViewModel = koinViewModel()
+    viewModel: MovieDetailViewModel = koinViewModel(),
+    navigateBack: () -> Unit
 ) {
     val movieDetailState by viewModel.movieDetailState.collectAsStateWithLifecycle()
-    MovieDetailsScreen(movieDetailState)
+    MovieDetailsScreen(movieDetailState, navigateBack)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailsScreen(
-    movieDetailState: MovieDetailViewModel.MovieDetailState
+    movieDetailState: MovieDetailViewModel.MovieDetailState,
+    onNavigationIconClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -83,9 +87,7 @@ fun MovieDetailsScreen(
                         shape = MaterialTheme.shapes.small,
                     ) {
                         IconButton(
-                            onClick = {
-
-                            },
+                            onClick = onNavigationIconClick,
                             modifier = Modifier
                                 .size(32.dp)
                         ) {
@@ -138,9 +140,12 @@ fun MovieDetailContent(
     movie: Movie,
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = modifier
             .fillMaxSize()
+            .verticalScroll(scrollState)
     ) {
         Surface(
             modifier = Modifier
@@ -269,6 +274,7 @@ fun MovieDetailContent(
             Box(
                 modifier = Modifier
                     .padding(16.dp)
+                    .fillMaxWidth()
             ) {
                 Text(
                     text = movie.overview,
@@ -284,6 +290,6 @@ fun MovieDetailContent(
 @Composable
 private fun MovieDetailsPreview() {
     MoviesAppTheme {
-        MovieDetailsScreen(MovieDetailViewModel.MovieDetailState.Success(movie1))
+        MovieDetailsScreen(MovieDetailViewModel.MovieDetailState.Success(movie1),  {})
     }
 }

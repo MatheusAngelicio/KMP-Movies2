@@ -2,6 +2,7 @@ package com.example.kmpmovies2.data.repository
 
 import com.example.kmpmovies2.data.mapper.toModel
 import com.example.kmpmovies2.data.network.KtorClient
+import com.example.kmpmovies2.domain.model.ImageSize
 import com.example.kmpmovies2.domain.model.Movie
 import com.example.kmpmovies2.domain.model.MovieSection
 import com.example.kmpmovies2.domain.repository.MoviesRepository
@@ -52,7 +53,11 @@ class MoviesRepositoryImpl(
                 val movieDetailResponse = movieDetailDeferred.await()
                 val creditsResponse = creditsDeferred.await()
 
-                movieDetailResponse.toModel(castMembersResponse = creditsResponse.cast)
+                movieDetailResponse.toModel(
+                    castMembersResponse = creditsResponse.cast,
+                    imageSize = ImageSize.X_LARGE
+
+                )
             }
         }
     }
