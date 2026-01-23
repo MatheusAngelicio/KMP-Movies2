@@ -5,6 +5,7 @@ import com.example.kmpmovies2.data.network.model.CastMemberResponse
 import com.example.kmpmovies2.data.network.model.MovieResponse
 import com.example.kmpmovies2.domain.model.ImageSize
 import com.example.kmpmovies2.domain.model.Movie
+import com.example.kmpmovies2.utils.formatRating
 import kotlin.math.roundToInt
 
 fun MovieResponse.toModel(
@@ -18,7 +19,7 @@ fun MovieResponse.toModel(
     genres = this.genres?.map { it.toModel() },
     year = this.getYearFromReleaseDate(),
     duration = this.getDurationInHoursAndMinutes(),
-    rating = "${this.voteAverage.roundToInt()}",
+    rating = this.voteAverage.formatRating(),
     castMembers = castMembersResponse
         ?.filter { it.department == "Acting" }
         ?.take(20)
