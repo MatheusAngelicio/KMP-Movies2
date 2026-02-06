@@ -3,6 +3,7 @@ package com.example.kmpmovies2.data.network
 import com.example.kmpmovies2.data.network.model.CreditsListResponse
 import com.example.kmpmovies2.data.network.model.MovieResponse
 import com.example.kmpmovies2.data.network.model.MoviesListResponse
+import com.example.kmpmovies2.data.network.model.VideosListResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.auth.Auth
@@ -66,6 +67,12 @@ class  KtorClient {
 
     suspend fun getCredits(movieId: Int, language: String = "pt-BR"): CreditsListResponse {
         return client.get("$BASE_URL/3/movie/$movieId/credits") {
+            parameter("language", language)
+        }.body()
+    }
+
+    suspend fun getVideos(movieId: Int, language: String = "pt-BR"): VideosListResponse {
+        return client.get("$BASE_URL/3/movie/$movieId/videos") {
             parameter("language", language)
         }.body()
     }

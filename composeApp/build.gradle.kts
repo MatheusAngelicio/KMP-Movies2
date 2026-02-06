@@ -68,7 +68,7 @@ kotlin {
             implementation(libs.font.awesome)
             implementation(libs.kotlinx.datetime)
 
-
+            implementation(libs.mediaplayer.kmp)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
