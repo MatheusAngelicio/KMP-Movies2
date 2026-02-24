@@ -1,5 +1,6 @@
 package com.example.kmpmovies2.ui.movieDetails
 
+import VideoPlayer
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,12 +26,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -106,6 +113,32 @@ fun MovieDetailsScreen(
             )
         }
     ) { paddingValues ->
+        var youtubeVideoId by remember { mutableStateOf<String?>(null) }
+        youtubeVideoId?.let { key ->
+            ModalBottomSheet(
+                onDismissRequest = {
+                    youtubeVideoId = null
+                },
+                modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),
+                sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    print("https://www.youtube.com/watch?v=$key")
+                    VideoPlayer(
+                        modifier = Modifier.fillMaxWidth()
+                            .aspectRatio(16 / 9f),
+                        url = "https://www.youtube.com/watch?v=$key",
+                        showControls = true,
+                        autoPlay = true,
+                    )
+                }
+            }
+        }
+
+
         Box(
             modifier = Modifier
                 .padding(paddingValues)
@@ -119,7 +152,10 @@ fun MovieDetailsScreen(
 
                 is MovieDetailViewModel.MovieDetailState.Success -> {
                     MovieDetailContent(
-                        movie = movieDetailState.movie
+                        movie = movieDetailState.movie,
+                        onWatchTrailerClick = { key ->
+                            youtubeVideoId = key
+                        }
                     )
                 }
 
@@ -138,7 +174,8 @@ fun MovieDetailsScreen(
 @Composable
 fun MovieDetailContent(
     movie: Movie,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onWatchTrailerClick: (key: String) -> Unit,
 ) {
     val scrollState = rememberScrollState()
 
@@ -223,29 +260,34 @@ fun MovieDetailContent(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            ElevatedButton(
-                onClick = {
+            movie.movieTrailerYoutubeKey?.let { key ->
 
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-            ) {
-                Icon(
-                    imageVector = FontAwesomeIcons.Solid.Play,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(12.dp)
-                )
+                ElevatedButton(
+                    onClick = {
+                        onWatchTrailerClick(key)
+                    },
 
-                Text(
-                    text = stringResource(Res.string.movies_detail_watch_trailer),
                     modifier = Modifier
-                        .padding(start = 16.dp),
-                    fontWeight = FontWeight.Medium,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                ) {
+                    Icon(
+                        imageVector = FontAwesomeIcons.Solid.Play,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(12.dp)
+                    )
+
+                    Text(
+                        text = stringResource(Res.string.movies_detail_watch_trailer),
+                        modifier = Modifier
+                            .padding(start = 16.dp),
+                        fontWeight = FontWeight.Medium,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
             }
+
 
             movie.castMembers?.let { castMembers ->
 
@@ -290,6 +332,6 @@ fun MovieDetailContent(
 @Composable
 private fun MovieDetailsPreview() {
     MoviesAppTheme {
-        MovieDetailsScreen(MovieDetailViewModel.MovieDetailState.Success(movie1),  {})
+        MovieDetailsScreen(MovieDetailViewModel.MovieDetailState.Success(movie1), {})
     }
 }
